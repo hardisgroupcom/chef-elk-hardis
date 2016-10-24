@@ -1,0 +1,11 @@
+tcp-keepalive 60
+bind <%= @redis_ip %>
+
+requirepass <%= @redis_password %>
+
+maxmemory-policy noeviction
+
+appendonly yes
+appendfilename "appendonly.aof"
+
+dir <%= @redis_home %>
