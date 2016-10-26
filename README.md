@@ -14,6 +14,13 @@ This vagrant box installs a ready to use monitoring stack.
 Other providers, like VMWare may work, not tested!
 
 
+## Attributes
+
+### Redis configuration 
+In cookbooks/elk-hardis/attributes/default.rb
+* `default['elk-hardis']['redis_password']` - Password used by Redis (and Logstash)
+
+
 ## Up and SSH
 
 To start the vagrant box run:
@@ -24,7 +31,7 @@ To log in to the machine run:
 
     vagrant ssh
 
-## Limitation:
+## Limitation
 * This stack is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
 * This stack is ready to use for **development purpose** and as a standalone stack. 
 * This stack **is not securised** and must not be use in production without enabling security.
