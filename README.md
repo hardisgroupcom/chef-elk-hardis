@@ -11,7 +11,6 @@ This vagrant box installs a ready to use monitoring stack.
 ## Prerequisites
 
 [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) (minimum version 1.6)
-Other providers, like VMWare may work, not tested!
 
 
 ## Attributes
