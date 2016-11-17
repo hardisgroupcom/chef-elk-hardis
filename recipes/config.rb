@@ -17,12 +17,19 @@ elasticsearch_json_data = '{\"name\":\"Elasticsearch\",
                 \"jsonData\":{\"timeField\":\"@timestamp\",\"interval\":\"Daily\"},
                 \"database\":\"[logstash-]YYYY.MM.DD\"}'
 
-influxdb_json_data = '{\"name\":\"Collectd\",
+collectd_json_data = '{\"name\":\"Collectd\",
                 \"type\":\"influxdb\",
                 \"url\":\"http://localhost:8086\",
                 \"access\":\"proxy\",
                 \"jsonData\":{},
                 \"database\":\"collectd\"}'
+				
+telegraf_json_data = '{\"name\":\"Telegraf\",
+                \"type\":\"influxdb\",
+                \"url\":\"http://localhost:8086\",
+                \"access\":\"proxy\",
+                \"jsonData\":{},
+                \"database\":\"telegraf\"}'
 
 
 execute 'Grafana : add elasticsearch datasource' do
@@ -31,8 +38,12 @@ execute 'Grafana : add elasticsearch datasource' do
    retry_delay 5
 end
 
-execute 'Grafana : add influxdb datasource' do
-   command "curl #{url_api_grafana} -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*'  -H 'Referer: http://localhost:3000/datasources/new' --data-binary \"#{influxdb_json_data}\" --compressed"
+execute 'Grafana : add influxdb collectd datasource' do
+   command "curl #{url_api_grafana} -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*'  -H 'Referer: http://localhost:3000/datasources/new' --data-binary \"#{collectd_json_data}\" --compressed"
+end
+
+execute 'Grafana : add influxdb telegraf datasource' do
+   command "curl #{url_api_grafana} -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*'  -H 'Referer: http://localhost:3000/datasources/new' --data-binary \"#{telegraf_json_data}\" --compressed"
 end
 
 
