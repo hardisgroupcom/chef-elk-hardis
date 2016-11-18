@@ -7,3 +7,8 @@ bin/*
 
 .kitchen/
 .kitchen.local.yml
+
+
+files/default/rpms
+
+
