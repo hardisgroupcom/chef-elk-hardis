@@ -13,8 +13,8 @@ include_recipe 'elk-hardis::user'
     package pkg
  end
 
-rpm_name = 'grafana-3.1.1-1470047149.x86_64.rpm'
-rpm_url = 'https://grafanarel.s3.amazonaws.com/builds/grafana-3.1.1-1470047149.x86_64.rpm'
+rpm_name = 'grafana-4.0.2-1481203731.x86_64.rpm'
+rpm_url = 'https://grafanarel.s3.amazonaws.com/builds/grafana-4.0.2-1481203731.x86_64.rpm'
 
 remote_file "#{node['elk-hardis']['rpm_path']}/#{rpm_name}" do
   source rpm_url

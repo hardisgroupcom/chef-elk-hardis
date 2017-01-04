@@ -7,8 +7,8 @@
 
 include_recipe 'elk-hardis::user'
 
-rpm_name = 'influxdb-1.0.2.x86_64.rpm'
-rpm_url = 'https://dl.influxdata.com/influxdb/releases/influxdb-1.0.2.x86_64.rpm'
+rpm_name = 'influxdb-1.1.1.x86_64.rpm'
+rpm_url = 'https://dl.influxdata.com/influxdb/releases/influxdb-1.1.1.x86_64.rpm'
 
 remote_file "#{node['elk-hardis']['rpm_path']}/#{rpm_name}" do
   source rpm_url
