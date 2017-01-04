@@ -5,5 +5,5 @@ This chef cookbook installs a ready to use monitoring stack.
  * Logstash 2.4.0
  * ElasticSearch 2.4.1
  * Kibana 4.6.1
- * InfluxDB 1.0.2
- * Grafana 3.1.1
+ * InfluxDB 1.1.1
+ * Grafana 4.0.2
