@@ -31,6 +31,12 @@ template '/etc/grafana/grafana.ini' do
     mode '0644'
     owner 'grafana'
     group 'grafana'
+    variables({
+        :smtp_host => node['elk-hardis']['smtp_host'],
+        :smtp_user => node['elk-hardis']['smtp_user'],
+        :smtp_password => node['elk-hardis']['smtp_password'],
+        :smtp_from_address => node['elk-hardis']['smtp_from_address']
+    })
 end
 
 directory '/var/lib/grafana/dashboards' do

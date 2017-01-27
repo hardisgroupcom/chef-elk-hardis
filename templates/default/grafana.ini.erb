@@ -215,14 +215,14 @@ check_for_updates = true
 
 #################################### SMTP / Emailing ##########################
 [smtp]
-;enabled = false
-;host = localhost:25
-;user =
-;password =
+enabled = true
+host = <%= @smtp_host %>
+user = <%= @smtp_user %>
+password = <%= @smtp_password %>
 ;cert_file =
 ;key_file =
 ;skip_verify = false
-;from_address = admin@grafana.localhost
+from_address = <%= @smtp_from_address %>
 
 [emails]
 ;welcome_email_on_sign_up = false
