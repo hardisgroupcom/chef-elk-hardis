@@ -57,6 +57,9 @@ template '/var/lib/elk/curator_scripts/purge.curator.yml' do
     mode '0644'
     owner 'elk'
     group 'elk'
+    variables({
+        :retention_days_number => node['elk-hardis']['retention_days_number']
+    })
 end
 
 template '/var/lib/elk/curator_scripts/localhost.curator.yml' do 
