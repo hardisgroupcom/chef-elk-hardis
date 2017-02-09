@@ -78,7 +78,7 @@ execute 'create collectd database in influxdb' do
 end
 
 execute 'add retention policy in influxdb' do
-    command 'influx -execute "CREATE RETENTION POLICY three_days_only ON collectd DURATION 5d REPLICATION 1 DEFAULT"'
+    command "influx -execute 'CREATE RETENTION POLICY three_days_only ON collectd DURATION #{node['elk-hardis']['retention_days_number']}d REPLICATION 1 DEFAULT'"
 	retries 3
 	retry_delay 5
 end
