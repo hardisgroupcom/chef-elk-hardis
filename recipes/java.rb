@@ -1,5 +1,5 @@
-rpm_name = 'jdk-8u73-linux-x64.rpm'
-rpm_url = 'http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.rpm'
+rpm_name = 'jdk-8u121-linux-x64.rpm'
+rpm_url = 'http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm'
 
 remote_file "#{node['elk-hardis']['rpm_path']}/#{rpm_name}" do
   source rpm_url

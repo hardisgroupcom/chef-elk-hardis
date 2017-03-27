@@ -30,7 +30,7 @@ end
 fichier_conf_custo = '/etc/redis-hardis.conf'
 
 #On crée le fichier de configuration
-template '/etc/redis.conf' do 
+template '/etc/redis.conf' do
     source 'redis.conf.erb'
     mode '0644'
     owner 'redis'
@@ -39,12 +39,13 @@ template '/etc/redis.conf' do
         #Avec un include vers un fichier custo
         :conf_custo => fichier_conf_custo
     })
+    notifies :restart, 'service[redis]'
 end
 
 redis_home = '/var/lib/redis/'
 
 #On crée le fichier custo
-template fichier_conf_custo do 
+template fichier_conf_custo do
     source 'redis-hardis.conf.erb'
     mode '0644'
     owner 'redis'
@@ -54,9 +55,13 @@ template fichier_conf_custo do
         :redis_home => redis_home,
         :redis_password => node['elk-hardis']['redis_password']
     })
+    notifies :restart, 'service[redis]'
 end
 
-#On lance le service
+
+##SERVICE##
 service 'redis' do
-    action [:enable, :restart]
+  supports status: true, restart: true
+  action [:enable, :start]
 end
+##END SERVICE##

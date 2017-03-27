@@ -20,11 +20,12 @@ rpm_package rpm_name do
 end
 
 #Configuration influxdb
-template '/etc/influxdb/influxdb.conf' do 
+template '/etc/influxdb/influxdb.conf' do
     source 'influxdb.conf.erb'
     mode '0644'
     owner 'influxdb'
     group 'influxdb'
+    notifies :restart, 'service[influxdb]'
 end
 
 directory '/usr/share/collectd/'do
@@ -35,18 +36,18 @@ end
 
 
 #Configuration types.db
-template '/usr/share/collectd/types.db' do 
+template '/usr/share/collectd/types.db' do
     source 'influxdb.types.db.erb'
     mode '0644'
     owner 'influxdb'
     group 'influxdb'
+    notifies :restart, 'service[influxdb]'
 end
 
 
-#On démare le service
+##SERVICE##
 service 'influxdb' do
-      action [:enable, :restart]
+	supports status: true, restart: true
+	action [:enable, :start]
 end
-
-
-
+##END SERVICE##

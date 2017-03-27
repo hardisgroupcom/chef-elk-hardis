@@ -22,13 +22,18 @@ rpm_package rpm_name do
         source "#{node['elk-hardis']['rpm_path']}/#{rpm_name}"
 end
 
-template '/opt/kibana/config/kibana.yml' do 
+template '/opt/kibana/config/kibana.yml' do
     source 'kibana.yml.erb'
     mode '0644'
     owner 'elk'
     group 'elk'
+    notifies :restart, 'service[kibana]'
 end
 
+
+##SERVICE##
 service 'kibana' do
-  action [:enable, :restart]
+  supports status: true, restart: true
+  action [:enable, :start]
 end
+##END SERVICE##

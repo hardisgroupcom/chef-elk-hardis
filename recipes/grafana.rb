@@ -26,7 +26,7 @@ rpm_package rpm_name do
 end
 
 #Configuration grafana
-template '/etc/grafana/grafana.ini' do 
+template '/etc/grafana/grafana.ini' do
     source 'grafana.ini.erb'
     mode '0644'
     owner 'grafana'
@@ -37,6 +37,8 @@ template '/etc/grafana/grafana.ini' do
         :smtp_password => node['elk-hardis']['smtp_password'],
         :smtp_from_address => node['elk-hardis']['smtp_from_address']
     })
+    notifies :restart, 'service[grafana-server]'
+
 end
 
 directory '/var/lib/grafana/dashboards' do
@@ -44,11 +46,9 @@ directory '/var/lib/grafana/dashboards' do
     group 'grafana'
 end
 
-#On démare les services
+##SERVICE##
 service 'grafana-server' do
-      action [:enable, :restart]
+	supports status: true, restart: true
+	action [:enable, :start]
 end
-
-
-
-
+##END SERVICE##

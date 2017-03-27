@@ -22,14 +22,18 @@ rpm_package rpm_name do
 end
 
 
-template '/etc/logstash/conf.d/output.logstash.conf' do 
+template '/etc/logstash/conf.d/output.logstash.conf' do
     source 'logstash/output.logstash.conf.erb'
     mode '0644'
     owner 'elk'
     group 'elk'
+    notifies :restart, 'service[logstash]'
 end
 
 
+##SERVICE##
 service 'logstash' do
+  supports status: true, restart: true
   action [:enable, :restart]
 end
+##END SERVICE##

@@ -13,8 +13,6 @@ directory '/root/elk_install/rpm' do
 end
 
 
-
-
 rpm_name = 'elasticsearch-2.4.1.rpm'
 rpm_url = 'https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.4.1/elasticsearch-2.4.1.rpm'
 
@@ -44,15 +42,16 @@ directory '/var/lib/elk/curator_scripts' do
     group 'elk'
 end
 
-template '/etc/elasticsearch/elasticsearch.yml' do 
+template '/etc/elasticsearch/elasticsearch.yml' do
     source 'elasticsearch.yml.erb'
     mode '0644'
     owner 'elk'
     group 'elk'
+    notifies :restart, 'service[elasticsearch]'
 end
 
 
-template '/var/lib/elk/curator_scripts/purge.curator.yml' do 
+template '/var/lib/elk/curator_scripts/purge.curator.yml' do
     source 'purge.curator.yml.erb'
     mode '0644'
     owner 'elk'
@@ -62,7 +61,7 @@ template '/var/lib/elk/curator_scripts/purge.curator.yml' do
     })
 end
 
-template '/var/lib/elk/curator_scripts/localhost.curator.yml' do 
+template '/var/lib/elk/curator_scripts/localhost.curator.yml' do
     source 'localhost.curator.yml.erb'
     mode '0644'
     owner 'elk'
@@ -80,9 +79,12 @@ end
 execute 'add elasticsearch head plugin' do
    command '/usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head'
    not_if do FileTest.directory?('/usr/share/elasticsearch/plugins/head') end
+   notifies :restart, 'service[elasticsearch]'
 end
 
-
+##SERVICE##
 service 'elasticsearch' do
-  action [:enable, :restart]
+	supports status: true, restart: true
+	action [:enable, :start]
 end
+##END SERVICE##
